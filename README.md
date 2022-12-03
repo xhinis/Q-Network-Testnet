@@ -184,20 +184,20 @@ Dosya içerisinde aşağodaki bölümü düzenliyoruz;
 Alttaki kodu komple kopyalayın ve docker-compose.yaml dosyasındaki ile değiştirin burada sadece VALİDATÖR-İSMİNİZ yazan kısmı değiştirip kaydedin. ctrl + x Yes diyip kaydedin
 
 ```
-version: "3"
+version: "3" 
 
 services:
   testnet-validator-node:
     image: $QCLIENT_IMAGE
-    entrypoint: ["geth", "--ethstats=VALİDATOR-İSMİNİZ:qstats-testnet@stats.qtestnet.org", "--bootnodes=$BOOTNODE1_ADDR", "--datadir=/data", "--nat=extip:$IP", "--port=$EXT_PORT", "--unlock=$ADDRESS",  "--password=/data/keystore/pwd.txt", "--mine", "--miner.threads=1", "--syncmode=full", "--rpc.allow-unprotected-txs", "--testnet", "--verbosity=3", "--miner.gasprice=1"]
+    entrypoint: ["geth", "--ethstats=NODEİSMİNİZ:qstats-testnet@stats.qtestnet.org", "--datadir=/data", "--nat=extip:$IP", "--port=$EXT_PORT", "--unlock=$ADDRESS",  "--password=/data/keystore/pwd.txt", "--mine", "--miner.threads=1", "--syncmode=full", "--rpc.allow-unprotected-txs", "--testnet", "--verbosity=3", "--miner.gasprice=1"]
     volumes:
       - ./keystore:/data/keystore
       - ./additional:/data/additional
       - testnet-validator-node-data:/data
     ports:
-      - $EXT_PORT:8545/tcp
-      - $EXT_PORT:8545/udp
-    restart: unless-stopped
+    - $EXT_PORT:$EXT_PORT/tcp
+    - $EXT_PORT:$EXT_PORT/udp
+    restart: unless-stopped 
 
 volumes:
   testnet-validator-node-data:
